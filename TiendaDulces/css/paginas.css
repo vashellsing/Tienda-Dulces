@@ -1,0 +1,144 @@
+/* ==================== ESTILOS ESPECÍFICOS: CATÁLOGO ==================== */
+
+.barra-filtros {
+    display: flex;
+    flex-wrap: wrap; /* Si la pantalla es pequeña, los botones bajan a la siguiente línea */
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.btn-filtro {
+    background-color: #f5f5f5;
+    color: var(--color-texto);
+    border: 1px solid #ddd;
+    font-weight: normal;
+}
+
+.btn-filtro:hover {
+    background-color: #e0e0e0;
+    transform: none; /* Quitamos el salto para que se sienta como una pestaña */
+}
+
+/* Estilo para el botón de la categoría que esté seleccionada en ese momento */
+.btn-filtro.activo {
+    background-color: var(--color-secundario);
+    color: #ffffff;
+    border-color: var(--color-secundario);
+    font-weight: bold;
+}
+
+
+/* ==================== ESTILOS ESPECÍFICOS: LOGIN ==================== */
+
+.contenedor-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Ocupa al menos el 60% del alto de la pantalla */
+}
+
+.tarjeta-login {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: var(--borde-redondeado);
+    box-shadow: var(--sombra-tarjeta);
+    width: 100%;
+    max-width: 400px; /* Evita que el formulario se estire demasiado en PC */
+}
+
+.subtitulo-login {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+.grupo-input {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.grupo-input label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--color-texto);
+}
+
+.grupo-input input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: var(--fuente-principal);
+    outline: none; /* Quita el borde feo por defecto al hacer clic */
+}
+
+.grupo-input input:focus {
+    border-color: var(--color-primario); /* Se pinta de rosa al escribir */
+}
+
+.btn-bloque {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.mensaje-error {
+    color: var(--color-acento); /* Rojo */
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 15px;
+    display: none; /* Oculto por defecto, JS lo mostrará si hay error */
+}
+
+
+/* ==================== ESTILOS ESPECÍFICOS: CARRITO ==================== */
+
+.diseno-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+/* La lista de productos ocupa el 65% del ancho */
+.lista-carrito {
+    width: 65%;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: var(--borde-redondeado);
+    box-shadow: var(--sombra-tarjeta);
+}
+
+/* El resumen ocupa el 30% del ancho */
+.resumen-carrito {
+    width: 30%;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: var(--borde-redondeado);
+    box-shadow: var(--sombra-tarjeta);
+    position: sticky; /* Hace que el cuadro de pago persiga al usuario al bajar */
+    top: 100px;
+}
+
+.fila-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Si la pantalla es muy pequeña (como un celular), ponemos una columna debajo de la otra */
+@media (max-width: 800px) {
+    .diseno-carrito {
+        flex-direction: column;
+    }
+    .lista-carrito, .resumen-carrito {
+        width: 100%; /* Ahora cada una ocupa el 100% del espacio en celulares */
+    }
+}
