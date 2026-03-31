@@ -1,6 +1,4 @@
-// 1. Importamos nuestro usuario falso desde la base de datos
-import { usuario } from './db.js';
-import { verificarSesionMenu } from './main.js';
+
 
 /* =========================================================================
    VARIABLES DEL DOM

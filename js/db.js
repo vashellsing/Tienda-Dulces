@@ -1,5 +1,5 @@
 // Base de datos simulada de productos
-export const productos = [
+const productos = [
     {
         id: 1,
         nombre: "Desayuno Sorpresa Amor",
@@ -44,7 +44,7 @@ export const productos = [
 ];
 
 // Usuario simulado para que podamos probar el Login luegoxd
-export const usuario = {
+const usuario = {
     correo: "cliente@tienda.com",
     contrasena: "123456",
     nombre: "Juan Pérez"

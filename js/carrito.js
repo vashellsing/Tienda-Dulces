@@ -1,6 +1,3 @@
-// Importamos nuestra función para formatear precios (la ruta es ./ porque ambos JS están en la misma carpeta)
-import { formatearPrecio } from './main.js';
-
 /* =========================================================================
    VARIABLES DEL DOM
    ========================================================================= */
@@ -74,6 +71,11 @@ const eliminarDelCarrito = (indice) => {
     carrito.splice(indice, 1); // Quitamos el producto del arreglo
     localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardamos el carrito actualizado
     renderizarCarrito(); // Volvemos a dibujar la pantalla
+    
+    // Actualizamos el contador del menú al eliminar un producto
+    if (typeof actualizarContadorCarrito === 'function') {
+        actualizarContadorCarrito();
+    }
 };
 
 /* =========================================================================
@@ -111,6 +113,11 @@ const procesarCompra = () => {
     localStorage.removeItem('carrito');
     renderizarCarrito();
     mensajeAuth.style.display = 'none';
+    
+    // Actualizamos el contador del menú para que vuelva a cero
+    if (typeof actualizarContadorCarrito === 'function') {
+        actualizarContadorCarrito();
+    }
 };
 
 /* =========================================================================
@@ -121,4 +128,7 @@ if (btnComprar) {
     btnComprar.addEventListener('click', procesarCompra);
 }
 
-document.addEventListener('DOMContentLoaded', renderizarCarrito);
+document.addEventListener('DOMContentLoaded', () => {
+    renderizarCarrito();
+    verificarSesionMenu(); // Mantiene el botón de cerrar sesión sincronizado
+});
