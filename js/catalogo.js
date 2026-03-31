@@ -1,6 +1,3 @@
-// 1. Importamos los datos y las funciones compartidas
-import { productos } from './db.js';
-import { formatearPrecio, verificarSesionMenu } from './main.js';
 
 /* =========================================================================
    VARIABLES GLOBALES DEL CATÁLOGO
@@ -11,18 +8,6 @@ const botonesFiltro = document.querySelectorAll('.btn-filtro');
 /* =========================================================================
    FUNCIONES DEL CARRITO
    ========================================================================= */
-
-// Función para actualizar el globito rojo del carrito en el menú
-const actualizarContadorCarrito = () => {
-    const contadorElemento = document.getElementById('contador-carrito');
-    if (contadorElemento) {
-        // Leemos cuántos productos hay en la memoria
-        const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
-        // Actualizamos el texto del HTML con esa cantidad
-        contadorElemento.textContent = carritoActual.length;
-    }
-};
-
 /* =========================================================================
    FUNCIONES PRINCIPALES
    ========================================================================= */

@@ -1,12 +1,11 @@
-// Importamos nuestra base de datos simulada
-import { productos } from './db.js';
+
 
 /* =========================================================================
    FUNCIONES DE UTILIDAD
    ========================================================================= */
 
 // Exportamos esta función por si la necesitamos en catalogo.js o carrito.js
-export const formatearPrecio = (precio) => {
+const formatearPrecio = (precio) => {
     return new Intl.NumberFormat('es-CO', {
         style: 'currency',
         currency: 'COP', 
@@ -72,7 +71,7 @@ const renderizarDestacados = () => {
    LÓGICA DEL MENÚ DE NAVEGACIÓN (SESIÓN)
    ========================================================================= */
 
-export const verificarSesionMenu = () => {
+const verificarSesionMenu = () => {
     const itemLogin = document.getElementById('item-login');
     const itemLogout = document.getElementById('item-logout');
     const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
@@ -106,7 +105,9 @@ export const verificarSesionMenu = () => {
         });
     }
 };
-
+//  ============
+//  Inicializacion
+//  ===========
 document.addEventListener('DOMContentLoaded', () => {
     renderizarDestacados();
     actualizarContadorCarrito(); // Actualizamos el globito rojo al entrar a la página
