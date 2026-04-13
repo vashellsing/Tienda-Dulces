@@ -18,8 +18,12 @@ const manejarLogin = (evento) => {
     const correoIngresado = inputCorreo.value;
     const contrasenaIngresada = inputContrasena.value;
 
-    // Comparamos con nuestra base de datos simulada
-    if (correoIngresado === usuario.correo && contrasenaIngresada === usuario.contrasena) {
+    // --- CAMBIO DE SEGURIDAD ---
+    // Codificamos la contraseña ingresada a Base64 para que coincida con db.js
+    const contrasenaCodificada = btoa(contrasenaIngresada);
+
+    // Comparamos con nuestra base de datos simulada (usando la versión codificada)
+    if (correoIngresado === usuario.correo && contrasenaCodificada === usuario.contrasena) {
         
         // Guardamos la sesión en LocalStorage si todo ok
         localStorage.setItem('usuarioLogueado', 'true');
@@ -30,13 +34,13 @@ const manejarLogin = (evento) => {
 
         // NUEVO: Usamos el modal y le pasamos la redirección como segunda instrucción
         mostrarModal(`¡Bienvenido/a, ${usuario.nombre}!`, () => {
-            window.location.href = '../index.html'; // Lo mandamos a la página principal al darle a Aceptar
+            window.location.href = '../index.html'; // Lo mandamos a la página principal
         });
 
     } else {
-        // Las credenciales son incorrectas, mostramos el mensaje de error
+        // Las credenciales son incorrectas
         mensajeError.textContent = 'Correo o contraseña incorrectos. Intenta de nuevo.';
-        mensajeError.style.display = 'block'; // Hacemos visible el texto rojo
+        mensajeError.style.display = 'block'; 
     }
 };
 
@@ -44,7 +48,6 @@ const manejarLogin = (evento) => {
    INICIALIZACIÓN
    ========================================================================= */
 
-// Verificamos que el formulario exista antes de agregarle el evento (buena práctica)
 if (formularioLogin) {
     formularioLogin.addEventListener('submit', manejarLogin);
 }

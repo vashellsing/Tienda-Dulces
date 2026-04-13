@@ -46,6 +46,6 @@ const productos = [
 // Usuario simulado para que podamos probar el Login luegoxd
 const usuario = {
     correo: "cliente@tienda.com",
-    contrasena: "123456",
+    contrasena: "MTIzNDU2",
     nombre: "Juan Pérez"
 };

@@ -53,6 +53,7 @@ const renderizarDestacados = () => {
 
     contenedor.innerHTML = '';
 
+    // Tomamos los primeros 3 productos de la lista
     const productosDestacados = productos.slice(0, 3);
 
     productosDestacados.forEach(producto => {
@@ -66,15 +67,31 @@ const renderizarDestacados = () => {
             <button class="btn btn-primario btn-agregar" data-id="${producto.id}">
                 Agregar al Carrito
             </button>
+            <a href="vistas/producto.html?id=${producto.id}" class="btn-detalles">Ver detalles</a>
         `;
 
         const botonAgregar = tarjeta.querySelector('.btn-agregar');
         botonAgregar.addEventListener('click', () => {
+            // 1. Traemos el carrito actual
             const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
-            carritoActual.push(producto);
-            localStorage.setItem('carrito', JSON.stringify(carritoActual));
             
+            // 2. Lógica de Cantidad: Buscamos si el producto ya existe
+            const indice = carritoActual.findIndex(item => item.id === producto.id);
+            
+            if (indice !== -1) {
+                // Si ya existe, sumamos a la cantidad
+                carritoActual[indice].cantidad = (carritoActual[indice].cantidad || 1) + 1;
+            } else {
+                // Si es nuevo, inicializamos cantidad en 1 y lo agregamos
+                producto.cantidad = 1;
+                carritoActual.push(producto);
+            }
+            
+            // 3. Guardamos y actualizamos
+            localStorage.setItem('carrito', JSON.stringify(carritoActual));
             actualizarContadorCarrito();
+            
+            // 4. Feedback visual con tu modal
             mostrarModal(`¡${producto.nombre} añadido al carrito!`);
         });
 

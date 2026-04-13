@@ -35,6 +35,7 @@ const renderizarCatalogo = (productosAMostrar) => {
             <button class="btn btn-primario btn-agregar" data-id="${producto.id}">
                 Agregar al Carrito
             </button>
+            <a href="producto.html?id=${producto.id}" class="btn-detalles">Ver detalles</a>
         `;
 
         // ==========================================
@@ -42,19 +43,28 @@ const renderizarCatalogo = (productosAMostrar) => {
         // ==========================================
         const botonAgregar = tarjeta.querySelector('.btn-agregar');
         botonAgregar.addEventListener('click', () => {
-            // 1. Traemos el carrito actual de la memoria (o creamos un arreglo vacío si no hay nada)
+            // 1. Traemos el carrito actual de la memoria
             const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
             
-            // 2. Metemos el producto que el usuario eligió al arreglo
-            carritoActual.push(producto);
+            // 2. Buscamos si el producto ya está en el carrito
+            const indice = carritoActual.findIndex(item => item.id === producto.id);
             
-            // 3. Volvemos a guardar el arreglo actualizado en la memoria del navegador
+            if (indice !== -1) {
+                // Si ya existe, solo aumentamos su cantidad
+                carritoActual[indice].cantidad = (carritoActual[indice].cantidad || 1) + 1;
+            } else {
+                // Si es nuevo, le ponemos cantidad 1 y lo metemos al carrito
+                producto.cantidad = 1;
+                carritoActual.push(producto);
+            }
+            
+            // 3. Volvemos a guardar el arreglo actualizado
             localStorage.setItem('carrito', JSON.stringify(carritoActual));
             
-            // 4. Actualizamos el número rojo del menú para dar retroalimentación visual
+            // 4. Actualizamos el número rojo del menú
             actualizarContadorCarrito();
             
-           // 5. Pequeño aviso al usuario con nuestro nuevo modal
+            // 5. Pequeño aviso al usuario con nuestro nuevo modal
             mostrarModal(`¡${producto.nombre} añadido al carrito!`);
         });
 
