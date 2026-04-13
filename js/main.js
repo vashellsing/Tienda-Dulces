@@ -1,10 +1,7 @@
-
-
 /* =========================================================================
-   FUNCIONES DE UTILIDAD
-   ========================================================================= */
+   FUNCIONES DE UTILIDAD Y MODALES
+   ========================================================================= */ 
 
-// Exportamos esta función por si la necesitamos en catalogo.js o carrito.js
 const formatearPrecio = (precio) => {
     return new Intl.NumberFormat('es-CO', {
         style: 'currency',
@@ -13,7 +10,6 @@ const formatearPrecio = (precio) => {
     }).format(precio);
 };
 
-// NUEVO: Función para actualizar el contador del carrito en el menú de Inicio
 const actualizarContadorCarrito = () => {
     const contadorElemento = document.getElementById('contador-carrito');
     if (contadorElemento) {
@@ -22,9 +18,34 @@ const actualizarContadorCarrito = () => {
     }
 };
 
+// Función para crear modales dinámicos (Movida arriba para mayor seguridad)
+const mostrarModal = (mensaje, accionAlCerrar = null) => {
+    const overlay = document.createElement('div');
+    overlay.classList.add('modal-overlay');
+
+    const caja = document.createElement('div');
+    caja.classList.add('modal-caja');
+
+    caja.innerHTML = `
+        <p>${mensaje}</p>
+        <button class="btn btn-primario btn-cerrar-modal">Aceptar</button>
+    `;
+
+    overlay.appendChild(caja);
+    document.body.appendChild(overlay);
+
+    const btnCerrar = caja.querySelector('.btn-cerrar-modal');
+    btnCerrar.addEventListener('click', () => {
+        overlay.remove(); 
+        if (accionAlCerrar) {
+            accionAlCerrar();
+        }
+    });
+};
+
 /* =========================================================================
    LÓGICA DE LA PÁGINA PRINCIPAL
-   ========================================================================= */
+   ========================================================================= */ 
 
 const renderizarDestacados = () => {
     const contenedor = document.getElementById('contenedor-destacados');
@@ -32,14 +53,12 @@ const renderizarDestacados = () => {
 
     contenedor.innerHTML = '';
 
-    // Tomamos solo los primeros 4 productos para que sean los "Destacados"
     const productosDestacados = productos.slice(0, 3);
 
     productosDestacados.forEach(producto => {
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('tarjeta-producto');
 
-        // Ruta de imagen sin ../ porque estamos en el index.html
         tarjeta.innerHTML = `
             <img src="recursos/img/${producto.imagen}" alt="${producto.nombre}">
             <h3>${producto.nombre}</h3>
@@ -51,22 +70,18 @@ const renderizarDestacados = () => {
 
         const botonAgregar = tarjeta.querySelector('.btn-agregar');
         botonAgregar.addEventListener('click', () => {
-            // Lógica idéntica a la del catálogo
             const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
             carritoActual.push(producto);
             localStorage.setItem('carrito', JSON.stringify(carritoActual));
             
             actualizarContadorCarrito();
-            alert(`¡${producto.nombre} añadido al carrito!`);
+            mostrarModal(`¡${producto.nombre} añadido al carrito!`);
         });
 
         contenedor.appendChild(tarjeta);
     });
 };
 
-/* =========================================================================
-   INICIALIZACIÓN
-   ========================================================================= */
 /* =========================================================================
    LÓGICA DEL MENÚ DE NAVEGACIÓN (SESIÓN)
    ========================================================================= */
@@ -76,40 +91,37 @@ const verificarSesionMenu = () => {
     const itemLogout = document.getElementById('item-logout');
     const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
 
-    // Revisamos si la llave existe en la memoria
     const usuarioLogueado = localStorage.getItem('usuarioLogueado');
 
     if (usuarioLogueado === 'true') {
-        // Si hay sesión: Ocultamos Login, Mostramos Logout
         if (itemLogin) itemLogin.style.display = 'none';
         if (itemLogout) itemLogout.style.display = 'block';
     } else {
-        // Si no hay sesión: Mostramos Login, Ocultamos Logout
         if (itemLogin) itemLogin.style.display = 'block';
         if (itemLogout) itemLogout.style.display = 'none';
     }
 
-    // Le damos vida al botón de cerrar sesión
     if (btnCerrarSesion) {
         btnCerrarSesion.addEventListener('click', (evento) => {
-            evento.preventDefault(); // Evita que la página salte hacia arriba
+            evento.preventDefault(); 
             
-            // Borramos los permisos de la memoria
             localStorage.removeItem('usuarioLogueado');
             localStorage.removeItem('nombreUsuario');
             
-            alert('Has cerrado sesión exitosamente.');
-            
-            // Recargamos la página o mandamos al inicio para que el menú se actualice
-            window.location.href = '../index.html'; 
+            mostrarModal('Has cerrado sesión exitosamente.', () => {
+                window.location.href = '../index.html';
+            });
+            // ⚠️ AQUÍ ESTABA EL ERROR: Se borró la línea que forzaba la recarga inmediata
         });
     }
 };
-//  ============
-//  Inicializacion
-//  ===========
+
+/* =========================================================================
+   INICIALIZACIÓN
+   ========================================================================= */
+
 document.addEventListener('DOMContentLoaded', () => {
     renderizarDestacados();
-    actualizarContadorCarrito(); // Actualizamos el globito rojo al entrar a la página
+    actualizarContadorCarrito(); 
     verificarSesionMenu();
 });

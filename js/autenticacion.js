@@ -1,5 +1,3 @@
-
-
 /* =========================================================================
    VARIABLES DEL DOM
    ========================================================================= */
@@ -13,7 +11,7 @@ const mensajeError = document.getElementById('mensaje-error');
    ========================================================================= */
 
 const manejarLogin = (evento) => {
-    // IMPORTANTE: Evitamos que el formulario recargue la página al hacer clic en enviar
+    // Evitamos que el formulario recargue la página al hacer clic en enviar
     evento.preventDefault();
 
     // Leemos lo que el usuario escribió
@@ -23,16 +21,17 @@ const manejarLogin = (evento) => {
     // Comparamos con nuestra base de datos simulada
     if (correoIngresado === usuario.correo && contrasenaIngresada === usuario.contrasena) {
         
-        // ¡Las credenciales son correctas! Guardamos la sesión en LocalStorage
+        // Guardamos la sesión en LocalStorage si todo ok
         localStorage.setItem('usuarioLogueado', 'true');
         localStorage.setItem('nombreUsuario', usuario.nombre);
 
         // Limpiamos cualquier error previo
         mensajeError.style.display = 'none';
 
-        // Mostramos un mensaje de éxito rápido y redirigimos al inicio
-        alert(`¡Bienvenido/a, ${usuario.nombre}!`);
-        window.location.href = '../index.html'; // Lo mandamos a la página principal
+        // NUEVO: Usamos el modal y le pasamos la redirección como segunda instrucción
+        mostrarModal(`¡Bienvenido/a, ${usuario.nombre}!`, () => {
+            window.location.href = '../index.html'; // Lo mandamos a la página principal al darle a Aceptar
+        });
 
     } else {
         // Las credenciales son incorrectas, mostramos el mensaje de error

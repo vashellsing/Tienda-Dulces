@@ -124,31 +124,38 @@ const eliminarDelCarrito = (indice) => {
    COMPRA
    ========================================================================= */
 
+/* =========================================================================
+   COMPRA
+   ========================================================================= */
+
 const procesarCompra = () => {
     if (carrito.length === 0) {
-        alert('Agrega algunos dulces o regalos a tu carrito primero.');
+        // CAMBIO 1: Modal en lugar de alert
+        mostrarModal('Agrega algunos dulces o regalos a tu carrito primero.');
         return;
     }
 
     const usuarioLogueado = localStorage.getItem('usuarioLogueado');
 
     if (usuarioLogueado !== 'true') {
-        mensajeAuth.textContent = 'Debes iniciar sesión para poder comprar.';
-        mensajeAuth.style.display = 'block';
-
-        setTimeout(() => {
+        // CAMBIO 2: Usamos el modal con redirección en lugar del setTimeout
+        mostrarModal('Debes iniciar sesión para poder realizar tu compra.', () => {
             window.location.href = 'login.html';
-        }, 2000);
+        });
         return;
     }
 
     const nombre = localStorage.getItem('nombreUsuario') || 'Cliente';
-    alert(`¡Gracias por tu compra, ${nombre}!`);
+    
+    // CAMBIO 3: Modal de éxito de compra
+    mostrarModal(`¡Gracias por tu compra, ${nombre}!`);
 
     carrito = [];
     localStorage.removeItem('carrito');
     renderizarCarrito();
-    mensajeAuth.style.display = 'none';
+    
+    // Ya no necesitamos mostrar el mensajeAuth en texto, el modal hace el trabajo
+    if (mensajeAuth) mensajeAuth.style.display = 'none';
 
     if (typeof actualizarContadorCarrito === 'function') {
         actualizarContadorCarrito();

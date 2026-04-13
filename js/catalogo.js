@@ -54,8 +54,8 @@ const renderizarCatalogo = (productosAMostrar) => {
             // 4. Actualizamos el número rojo del menú para dar retroalimentación visual
             actualizarContadorCarrito();
             
-            // 5. Pequeño aviso al usuario
-            alert(`¡${producto.nombre} añadido al carrito!`);
+           // 5. Pequeño aviso al usuario con nuestro nuevo modal
+            mostrarModal(`¡${producto.nombre} añadido al carrito!`);
         });
 
         contenedorCatalogo.appendChild(tarjeta);
