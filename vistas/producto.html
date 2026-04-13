@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalle del Dulce</title>
+    <link rel="stylesheet" href="../css/estilos.css" />
+  </head>
+  <body>
+    <main class="contenedor-principal">
+      <div
+        class="vista-detalle-producto"
+        style="display: flex; gap: 20px; margin: 40px auto; max-width: 800px"
+      >
+        <div class="detalle-imagen" style="flex: 1">
+          <img
+            id="detalle-img"
+            src=""
+            alt="Cargando imagen..."
+            style="width: 100%; border-radius: 8px"
+          />
+        </div>
+
+        <div class="detalle-info" style="flex: 1">
+          <h1 id="detalle-nombre">Cargando producto...</h1>
+          <h2 id="detalle-precio" style="color: #e63946">$0.00</h2>
+
+          <h3>Descripción:</h3>
+          <p id="detalle-descripcion">
+            Cargando los detalles más deliciosos de este dulce...
+          </p>
+
+          <div style="margin-top: 20px">
+            <button id="detalle-btn-agregar" class="btn-agregar">
+              Agregar al carrito
+            </button>
+            <a
+              href="catalogo.html"
+              style="margin-left: 15px; text-decoration: none"
+              >Volver al catálogo</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../js/datos.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/producto.js"></script>
+  </body>
+</html>
