@@ -132,6 +132,28 @@
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
 }
+.btn-sumar,
+.btn-restar {
+    padding: 5px 10px;
+    border: none;
+    background-color: var(--color-acento);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-restar {
+    background-color: #999;
+}
+
+.btn-sumar:hover {
+    background-color: #ff4d6d;
+}
+
+.btn-restar:hover {
+    background-color: #777;
+}
 
 /* Si la pantalla es muy pequeña (como un celular), ponemos una columna debajo de la otra */
 @media (max-width: 800px) {
