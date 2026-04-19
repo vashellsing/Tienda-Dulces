@@ -1,15 +1,13 @@
 :root {
-
-    --color-fondo: #FFFDFD;      
+    
+    --color-fondo: #FDF4F8;      
     --color-texto: #333333;     
     --color-primario: #E8A0BF;   
     --color-secundario: #C27BA0; 
     --color-acento: #D9534F;     
     
-
     --fuente-principal: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     
-
     --sombra-tarjeta: 0 4px 10px rgba(0, 0, 0, 0.08);
     --borde-redondeado: 12px;    
 }

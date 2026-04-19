@@ -19,21 +19,34 @@ const manejarLogin = (evento) => {
     const contrasenaIngresada = inputContrasena.value;
 
     // --- CAMBIO DE SEGURIDAD ---
-    // Codificamos la contraseña ingresada a Base64 para que coincida con db.js
+    // Codificamos la contraseña ingresada a Base64
     const contrasenaCodificada = btoa(contrasenaIngresada);
 
-    // Comparamos con nuestra base de datos simulada (usando la versión codificada)
-    if (correoIngresado === usuario.correo && contrasenaCodificada === usuario.contrasena) {
+    // 1. Buscamos en los usuarios nuevos registrados (LocalStorage)
+    let usuariosRegistrados = JSON.parse(localStorage.getItem('usuarios_tienda')) || [];
+    
+    // El método .find() busca a alguien que tenga el mismo correo y la misma contraseña
+    let usuarioEncontrado = usuariosRegistrados.find(u => u.correo === correoIngresado && u.contrasena === contrasenaCodificada);
+
+    // 2. Si no lo encontramos en los nuevos, verificamos si es el usuario por defecto de db.js
+    if (!usuarioEncontrado) {
+        if (typeof usuario !== 'undefined' && correoIngresado === usuario.correo && contrasenaCodificada === usuario.contrasena) {
+            usuarioEncontrado = usuario; // Asignamos a "Juan Pérez"
+        }
+    }
+
+    // 3. Comprobamos si tuvimos éxito en la búsqueda
+    if (usuarioEncontrado) {
         
-        // Guardamos la sesión en LocalStorage si todo ok
+        // Guardamos la sesión en LocalStorage
         localStorage.setItem('usuarioLogueado', 'true');
-        localStorage.setItem('nombreUsuario', usuario.nombre);
+        localStorage.setItem('nombreUsuario', usuarioEncontrado.nombre); // Guardamos el nombre del usuario real que entró
 
         // Limpiamos cualquier error previo
         mensajeError.style.display = 'none';
 
-        // NUEVO: Usamos el modal y le pasamos la redirección como segunda instrucción
-        mostrarModal(`¡Bienvenido/a, ${usuario.nombre}!`, () => {
+        // Usamos el modal y le pasamos la redirección
+        mostrarModal(`¡Bienvenido/a, ${usuarioEncontrado.nombre}!`, () => {
             window.location.href = '../index.html'; // Lo mandamos a la página principal
         });
 
@@ -53,5 +66,7 @@ if (formularioLogin) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    verificarSesionMenu();
+    if (typeof verificarSesionMenu === 'function') {
+        verificarSesionMenu();
+    }
 });
