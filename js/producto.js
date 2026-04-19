@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('detalle-descripcion').textContent = productoSeleccionado.descripcion || "Un delicioso dulce preparado con los mejores ingredientes.";
         
         // Asignamos la imagen
-        document.getElementById('detalle-img').src = productoSeleccionado.imagen || "../img/default.jpg";
+        document.getElementById('detalle-img').src = `../recursos/img/${productoSeleccionado.imagen}`;
 
         // 4. Le damos vida al botón "Agregar al carrito"
         const btnAgregar = document.getElementById('detalle-btn-agregar');
@@ -37,25 +37,26 @@ document.addEventListener('DOMContentLoaded', () => {
    FUNCIÓN PARA AGREGAR AL CARRITO DESDE ESTA PÁGINA
    ========================================================================= */
 function agregarAlCarritoDesdeDetalle(producto) {
-    // Abrimos la memoria del carrito
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     
-    // Verificamos si el dulce ya está en el carrito
     const indice = carrito.findIndex(item => item.id === producto.id);
     if (indice !== -1) {
-        carrito[indice].cantidad++; // Sumamos uno más
+        carrito[indice].cantidad++;
     } else {
-        producto.cantidad = 1;      // Lo agregamos por primera vez
+        producto.cantidad = 1;
         carrito.push(producto);
     }
     
-    // Guardamos la memoria actualizada
     localStorage.setItem('carrito', JSON.stringify(carrito));
     
-    // Actualizamos la burbuja roja del menú (usando la función de main.js)
     if (typeof actualizarContadorCarrito === 'function') {
         actualizarContadorCarrito();
     }
     
-    alert(`¡Agregaste ${producto.nombre} al carrito!`);
+    // --- CAMBIO AQUÍ: Usamos el modal en lugar de alert ---
+    if (typeof mostrarModal === 'function') {
+        mostrarModal(`¡Genial! Has agregado ${producto.nombre} al carrito.`);
+    } else {
+        alert(`¡Agregaste ${producto.nombre} al carrito!`);
+    }
 }

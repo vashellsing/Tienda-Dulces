@@ -1,66 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito - Tienda de Dulces y Regalos</title>
-    
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/globales.css">
-    <link rel="stylesheet" href="../css/componentes.css">
-    <link rel="stylesheet" href="../css/paginas.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Carrito - Tienda de Dulces y Regalos</title>
 
-    <header class="encabezado">
-        <div class="contenedor-logo">
-            <img src="../recursos/img/logo.png" alt="Logo Tienda" class="logo">
-        </div>
-        <nav class="navegacion">
-            <ul class="menu">
-    <li><a href="../index.html">Inicio</a></li>
-    <li><a href="catalogo.html">Catálogo</a></li>
-    
-    <li id="item-login"><a href="login.html">Iniciar Sesión</a></li>
-    
-    <li id="item-logout" style="display: none;"><a href="#" id="btn-cerrar-sesion">Cerrar Sesión</a></li>
-    
-    <li><a href="carrito.html" class="enlace-carrito">
-        🛒 Carrito <span id="contador-carrito" class="insignia">0</span>
-    </a></li>
-</ul>
-        </nav>
-    </header>
+        <link rel="stylesheet" href="../css/variables.css" />
+        <link rel="stylesheet" href="../css/globales.css" />
+        <link rel="stylesheet" href="../css/componentes.css" />
+        <link rel="stylesheet" href="../css/paginas.css" />
+    </head>
+    <body>
+        <div id="contenedor-header"></div>
 
-    <main class="contenedor">
+        <main class="contenedor">
         <h1 class="titulo-seccion">Tu Carrito de Compras</h1>
 
         <div class="diseno-carrito">
             <section class="lista-carrito" id="lista-carrito">
-                <p style="text-align: center; font-size: 18px; padding: 40px 0;">Tu carrito está vacío en este momento.</p>
+            <p style="text-align: center; font-size: 18px; padding: 40px 0">
+                Tu carrito está vacío en este momento.
+            </p>
             </section>
 
             <aside class="resumen-carrito">
-                <h3 style="margin-bottom: 20px; font-size: 24px;">Resumen del Pedido</h3>
-                
-                <div class="fila-resumen">
-                    <span style="font-size: 18px;">Total a pagar:</span>
-                    <span id="total-carrito" style="font-size: 22px; font-weight: bold; color: var(--color-acento);">$ 0</span>
-                </div>
-                
-                <button id="btn-comprar" class="btn btn-primario btn-bloque" style="margin-top: 25px;">Finalizar Compra</button>
-                
-                <p id="mensaje-auth" class="mensaje-error" style="margin-top: 15px;"></p>
+            <h3 style="margin-bottom: 20px; font-size: 24px">
+                Resumen del Pedido
+            </h3>
+
+            <div class="fila-resumen">
+                <span style="font-size: 18px">Total a pagar:</span>
+                <span
+                id="total-carrito"
+                style="
+                    font-size: 22px;
+                    font-weight: bold;
+                    color: var(--color-acento);
+                "
+                >$ 0</span
+                >
+            </div>
+
+            <button
+                id="btn-comprar"
+                class="btn btn-primario btn-bloque"
+                style="margin-top: 25px"
+            >
+                Finalizar Compra
+            </button>
+
+            <p
+                id="mensaje-auth"
+                class="mensaje-error"
+                style="margin-top: 15px"
+            ></p>
             </aside>
         </div>
-    </main>
+        </main>
 
-    <footer class="pie-pagina">
-        <p>&copy; 2026 Tienda de Dulces y Regalos.</p>
-    </footer>
+        <div id="contenedor-footer"></div>
 
-    <script src="../js/db.js"></script>
-<script src="../js/main.js"></script>
-<script src="../js/carrito.js"></script>
-</body>
+        <script src="../js/db.js"></script>
+        <script src="../js/componentes.js"></script>
+        <script src="../js/main.js"></script>
+        <script src="../js/carrito.js"></script>
+    </body>
 </html>

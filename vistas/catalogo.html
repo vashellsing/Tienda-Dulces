@@ -11,29 +11,7 @@
     <link rel="stylesheet" href="../css/paginas.css" />
   </head>
   <body>
-    <header class="encabezado">
-      <div class="contenedor-logo">
-        <img src="../recursos/img/logo.png" alt="Logo Tienda" class="logo" />
-      </div>
-      <nav class="navegacion">
-        <ul class="menu">
-          <li><a href="../index.html">Inicio</a></li>
-          <li><a href="catalogo.html">Catálogo</a></li>
-
-          <li id="item-login"><a href="login.html">Iniciar Sesión</a></li>
-
-          <li id="item-logout" style="display: none">
-            <a href="#" id="btn-cerrar-sesion">Cerrar Sesión</a>
-          </li>
-
-          <li>
-            <a href="carrito.html" class="enlace-carrito">
-              🛒 Carrito <span id="contador-carrito" class="insignia">0</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <div id="contenedor-header"></div>
 
     <main class="contenedor">
       <h1 class="titulo-seccion">Nuestro Catálogo</h1>
@@ -58,14 +36,11 @@
       <section id="contenedor-catalogo" class="cuadricula-productos"></section>
     </main>
 
-    <footer class="pie-pagina">
-      <p>
-        &copy; 2026 Tienda de Dulces y Regalos. Todos los derechos reservados.
-      </p>
-    </footer>
+    <div id="contenedor-footer"></div>
 
-   <script src="../js/db.js"></script>
-<script src="../js/main.js"></script>
-<script src="../js/catalogo.js"></script>
+    <script src="../js/db.js"></script>
+    <script src="../js/componentes.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/catalogo.js"></script>
   </body>
 </html>
